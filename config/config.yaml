@@ -1,0 +1,70 @@
+SYSTEM:
+  debug_flag: false
+  gpus: '0,1'
+  dataset: 'MSCOCO'
+  output_dir: './output'
+
+  start_iter: 0
+  max_iter: 1000000
+  stepsize: 250000
+  snapshot: 10000
+  val_iter: 10000
+  display: 5
+
+  batch_size: 8
+  prefetch_size: 100
+  chunk_sizes:
+    - 2
+
+  opt_algo: 'adam'
+  learning_rate: 0.0000625
+  decay_rate: 10
+
+DATASET:
+  data_dir: '/data/data'
+  cache_dir: './db/cache'
+
+  train_split: 'trainval'
+  val_split: 'minival'
+  test_split: 'testdev'
+
+  input_size:
+    - 511
+    - 511
+  output_sizes:
+    - - 128
+      - 128
+
+  rand_scale_min: 0.6
+  rand_scale_max: 1.4
+  rand_scale_step: 0.1
+  rand_scales: null
+  test_scales:
+    - 1
+  input_mod: 2
+
+  rand_crop: true
+  rand_color: true
+
+  border: 128
+  gaussian_bump: true
+
+  top_k: 70
+  categories: 80
+  kp_categories: 1
+  ae_threshold: 0.5
+  nms_threshold: 0.5
+  max_per_image: 100
+
+MODEL:
+  backbone_type: 'resnet18'
+  checkpoint: "./output/checkpoints/"
+  pre:
+    init_HG_PT: null
+  backbone:
+    init_HG_PT: null
+    init_resnet: null
+  post:
+    init_resnet: null
+  head:
+    init_PT: null
